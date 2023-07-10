@@ -1,0 +1,61 @@
+<MyGrid>
+    nombre: nombre
+    descripcion: descripcion
+    categoria: categoria
+    precio: precio
+    stock: stock
+    BoxLayout:
+        orientation: "vertical"
+        size: root.width - 100, root.height - 100
+        pos: 50, 50
+
+        BoxLayout:
+            orientation: "vertical"
+#            size: root.width, root.height * 0.10
+            Label:
+                text: "Mi tienda - Alta de producto"
+
+        BoxLayout:
+            orientation: "vertical"
+
+            Label
+                text: "Nombre del producto"
+            TextInput
+                id: nombre
+                multiline: False
+
+            Label
+                text: "Descripción"
+            TextInput
+                id: descripcion
+                multiline: True
+
+            Label
+                text: "Categoría"
+            TextInput
+                id: categoria
+                multiline: False
+
+            Label
+                text: "Precio"
+            TextInput
+                id: precio
+                input_type: "number"
+                input_filter: "float"
+                multiline: False
+
+            Label
+                text: "Stock"
+            TextInput
+                id: stock
+                input_type: "number"
+                input_filter: "int"
+                multiline: False
+
+        BoxLayout:
+            orientation: "vertical"
+#            size: root.width, root.height * 0.10
+            Button
+                text: "Submit"
+                font_size: 40
+                on_press: root.alta()
