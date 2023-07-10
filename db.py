@@ -26,11 +26,27 @@ def crear_tabla():
 
 def crear_producto(nombre, descripcion, categoria, precio, stock):
     con = sqlite3.connect("myapp.db")
-    con.execute(
-        """INSERT INTO producto (nombre, descripcion, categoria, precio, stock)
-        VALUES (?,?,?,?,?)""",
-        (nombre, descripcion, categoria, precio, stock)
-    )
-    con.commit()
-    con.close()
-    print("alta con exito", nombre, descripcion, categoria, precio, stock)
+    try:
+        con.execute(
+            """INSERT INTO producto (nombre, descripcion, categoria, precio, stock)
+            VALUES (?,?,?,?,?)""",
+            (nombre, descripcion, categoria, precio, stock)
+        )
+        con.commit()
+        print("alta con exito", nombre, descripcion, categoria, precio, stock)
+    finally:
+        con.close()
+
+
+def buscar_producto_por_nombre(nombre):
+    con = sqlite3.connect("myapp.db")
+    cur = con.cursor()
+    try:
+        cur.execute(
+            """SELECT id, nombre FROM producto WHERE nombre LIKE ?""",
+            ("%" + nombre + "%",)
+        )
+        print("busqueda con exito", nombre)
+        return cur.fetchall()
+    finally:
+        con.close()

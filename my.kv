@@ -1,9 +1,37 @@
-<MyGrid>
+WindowManager:
+    PaginaInicio:
+    PaginaAlta:
+
+<PaginaInicio>:
+    name: "inicio"
+    caja: caja
+
+    GridLayout:
+        cols: 1
+
+        GridLayout:
+            id: caja
+            cols: 2
+
+            TextInput
+                multiline: False
+                on_text: root.ver_productos(self.text)
+
+        Button:
+            text: "Alta de producto"
+            on_release:
+                root.manager.transition.direction = "left"
+                app.root.current = "alta"
+
+
+<PaginaAlta>:
+    name: "alta"
     nombre: nombre
     descripcion: descripcion
     categoria: categoria
     precio: precio
     stock: stock
+
     BoxLayout:
         orientation: "vertical"
         size: root.width - 100, root.height - 100
@@ -53,9 +81,14 @@
                 multiline: False
 
         BoxLayout:
-            orientation: "vertical"
+            orientation: "horizontal"
 #            size: root.width, root.height * 0.10
             Button
-                text: "Submit"
+                text: "Dar de alta"
                 font_size: 40
-                on_press: root.alta()
+                on_release: root.alta()
+            Button:
+                text: "Volver"
+                on_release:
+                    app.root.current = "inicio"
+                    root.manager.transition.direction = "right"
