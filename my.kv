@@ -132,29 +132,29 @@ WindowManager:
             size_hint: None, None
             Button:
                 text: "Modificar"
-                # background_normal='lapiz.png'
-                # background_down='lapiz.png'
-                # size_hint=(.3, .3)
-                # pos_hint={"x": 0.35, "y": 0.3}
+#                background_normal: 'lapiz.png'
+#                background_down: 'lapiz.png'
+#                size_hint: .3, .3
+#                pos_hint: {"x": 0.35, "y": 0.3}
                 on_release: root.activar_modificacion()
             Button:
                 id: boton_guardar
                 disabled: True
                 text: "Guardar cambios"
-                # background_normal='diskette.png'
-                # background_down='diskette.png'
-                # size_hint=(.3, .3)
-                # pos_hint={"x": 0.35, "y": 0.3}
+#                background_normal: 'diskette.png'
+#                background_down: 'diskette.png'
+#                size_hint: .3, .3
+#                pos_hint: {"x": 0.35, "y": 0.3}
                 on_release: root.modificar_prod()
 
         Button:
             text: "Borrar"
             size: root.width, root.height * 0.10
             size_hint: None, None
-            # background_normal='borrar.png'
-            # background_down='borrar.png'
-            # size_hint=(.3, .3)
-            # pos_hint={"x": 0.35, "y": 0.3}
+#            background_normal: 'tacho.png'
+#            background_down: 'tacho.png'
+#            size_hint: .3, .3
+#            pos_hint: {"x": 0.35, "y": 0.3}
             on_release:
                 root.borrar_prod()
                 app.root.current = "inicio"
