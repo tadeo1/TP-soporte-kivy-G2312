@@ -1,0 +1,106 @@
+WindowManager:
+    PaginaInicio:
+    PaginaAlta:
+
+<PaginaInicio>:
+    name: "inicio"
+    caja: caja
+
+    GridLayout:
+        cols: 1
+
+        GridLayout:
+            id: caja
+            cols: 2
+
+            TextInput
+                multiline: False
+                on_text: root.ver_productos(self.text)
+
+        Button:
+            text: "Alta de producto"
+            on_release:
+                root.manager.transition.direction = "left"
+                app.root.current = "alta"
+
+
+<PaginaAlta>:
+    name: "alta"
+    nombre: nombre
+    descripcion: descripcion
+    categoria: categoria
+    precio: precio
+    stock: stock
+
+    BoxLayout:
+        orientation: "vertical"
+
+
+
+        BoxLayout:
+            orientation: "vertical"
+            size: root.width, root.height * 0.10
+            size_hint: None, None
+            Label:
+                text: "Mi tienda - Alta de producto"
+
+        BoxLayout:
+            orientation: "vertical"
+            size_hint: 1, 0.8
+            Label
+                text: "  Nombre del producto"
+                text_size: self.size
+                halign: 'left'
+            TextInput
+                id: nombre
+                multiline: False
+
+            Label
+                text: "  Descripción"
+                text_size: self.size
+                halign: 'left'
+            TextInput
+                id: descripcion
+                multiline: True
+
+            Label
+                text: "  Categoría"
+                text_size: self.size
+                halign: 'left'
+            TextInput
+                id: categoria
+                multiline: False
+
+            Label
+                text: "  Precio"
+                text_size: self.size
+                halign: 'left'
+            TextInput
+                id: precio
+                input_type: "number"
+                input_filter: "float"
+                multiline: False
+
+            Label
+                text: "  Stock"
+                text_size: self.size
+                halign: 'left'
+            TextInput
+                id: stock
+                input_type: "number"
+                input_filter: "int"
+                multiline: False
+
+        BoxLayout:
+            orientation: "horizontal"
+            size: root.width, root.height * 0.10
+            size_hint: None, None
+
+            Button
+                text: "Dar de alta"
+                on_release: root.alta()
+            Button:
+                text: "Volver"
+                on_release:
+                    app.root.current = "inicio"
+                    root.manager.transition.direction = "right"
