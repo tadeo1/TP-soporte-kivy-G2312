@@ -66,6 +66,7 @@ def borrar_producto_por_nombre(nombre):
     finally:
         con.close()
 
+
 def modificar_producto_por_id(id, nombre, descripcion, categoria, precio, stock):
     con = sqlite3.connect("myapp.db")
     cur = con.cursor()
