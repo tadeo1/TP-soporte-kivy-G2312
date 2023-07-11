@@ -130,6 +130,7 @@ WindowManager:
 
 <PaginaBaja>:
     name: "baja"
+    caja_lista: caja_lista_borrar
 
     BoxLayout:
         orientation: "vertical"
@@ -141,47 +142,34 @@ WindowManager:
             Label:
                 text: "Mi tienda - Borrar producto"
 
-        BoxLayout:
-            orientation: "vertical"
-            size_hint: 1, 0.8
+        GridLayout:
+            cols: 1
+            Label:
+                size_hint: None, None
+                size: root.width, root.height * 0.10
+                text: "Seleccione un producto"
 
-            Label
-                text: "  ID producto"
-                text_size: self.size
-                halign: 'left'
-            Label
-                text: "  Nombre del producto"
-                text_size: self.size
-                halign: 'left'
+            TextInput:
+                size_hint: None, None
+                size: root.width, self.minimum_height if root.height * 0.10 < self.minimum_height else root.height * 0.10
+                multiline: False
+                on_text: root.listar_borrado_productos(self.text)
+                hint_text: "Filtrar por nombre"
+                cursor_color: [0,0,0,1]
 
-            Label
-                text: "  Descripción"
-                text_size: self.size
-                halign: 'left'
-
-            Label
-                text: "  Categoría"
-                text_size: self.size
-                halign: 'left'
-
-            Label
-                text: "  Precio"
-                text_size: self.size
-                halign: 'left'
-
-            Label
-                text: "  Stock"
-                text_size: self.size
-                halign: 'left'
+            ScrollView:
+                GridLayout:
+                    id: caja_lista_borrar
+                    cols: 1
+                    size_hint_y: None
+                    spacing: 10
+                    height: self.minimum_height
 
         BoxLayout:
             orientation: "horizontal"
             size: root.width, root.height * 0.10
             size_hint: None, None
 
-            Button:
-                text: "Borrar"
-                on_release: root.borrar()
             Button:
                 text: "Volver"
                 on_release:
