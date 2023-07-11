@@ -52,16 +52,16 @@ def buscar_producto_por_nombre(nombre):
         con.close()
 
 
-def borrar_producto_por_nombre(nombre):
+def borrar_producto_por_id(id):
     con = sqlite3.connect("myapp.db")
     cur = con.cursor()
     try:
         cur.execute(
-            """DELETE FROM producto WHERE nombre = ?""",
-            (nombre,)
+            """DELETE FROM producto WHERE id = ?""",
+            (id,)
         )
         con.commit()
-        print(f"'{nombre}' borrado con exito")
+        print(f"'{id}' borrado con exito")
         return cur.fetchall()
     finally:
         con.close()
