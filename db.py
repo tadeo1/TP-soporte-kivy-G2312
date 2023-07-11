@@ -65,3 +65,22 @@ def borrar_producto_por_nombre(nombre):
         return cur.fetchall()
     finally:
         con.close()
+
+def modificar_producto_por_id(id, nombre, descripcion, categoria, precio, stock):
+    con = sqlite3.connect("myapp.db")
+    cur = con.cursor()
+    try:
+        cur.execute(
+            """update FROM producto set nombre= ?, 
+            descripcion = ?, 
+            categoria = ?, 
+            precio = ?, 
+            stock = ? 
+            WHERE id = ?""",
+            (nombre, descripcion, categoria, precio, stock, id)
+        )
+        con.commit()
+        print(f"'{nombre}' modificado con exito")
+        return cur.fetchall()
+    finally:
+        con.close()
