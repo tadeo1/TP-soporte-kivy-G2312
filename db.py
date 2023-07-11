@@ -52,6 +52,35 @@ def buscar_producto_por_nombre(nombre):
         con.close()
 
 
+def get_producto_por_id(id):
+    con = sqlite3.connect("myapp.db")
+    con.row_factory = sqlite3.Row
+    cur = con.cursor()
+    try:
+        cur.execute(
+            """SELECT * FROM producto WHERE id = ?""",
+            (id,)
+        )
+        return cur.fetchone()
+    finally:
+        con.close()
+
+
+def borrar_producto_por_id(id):
+    con = sqlite3.connect("myapp.db")
+    cur = con.cursor()
+    try:
+        cur.execute(
+            """DELETE FROM producto WHERE id = ?""",
+            (id,)
+        )
+        con.commit()
+        print(f"ID {id} borrado con exito")
+        return cur.fetchall()
+    finally:
+        con.close()
+
+
 def borrar_producto_por_nombre(nombre):
     con = sqlite3.connect("myapp.db")
     cur = con.cursor()
@@ -72,7 +101,8 @@ def modificar_producto_por_id(id, nombre, descripcion, categoria, precio, stock)
     cur = con.cursor()
     try:
         cur.execute(
-            """update FROM producto set nombre= ?, 
+            """UPDATE producto SET
+            nombre = ?, 
             descripcion = ?, 
             categoria = ?, 
             precio = ?, 

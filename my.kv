@@ -1,27 +1,29 @@
 WindowManager:
     PaginaInicio:
+    PaginaDetalle:
     PaginaAlta:
-    PaginaBaja:
 
 <PaginaInicio>:
     name: "inicio"
     caja_lista: caja_lista
+    on_enter: filtro.text = ""
+    on_parent: root.ver_productos("")
 
     GridLayout:
         cols: 1
-
         Label:
             size_hint: None, None
             size: root.width, root.height * 0.10
-            text: "Busque su producto"
+            text: "Productos"
 
         TextInput:
+            id: filtro
             size_hint: None, None
             size: root.width, self.minimum_height if root.height * 0.10 < self.minimum_height else root.height * 0.10
-            multiline: False
-            on_text: root.ver_productos(self.text)
-            hint_text: "Ingrese nombre..."
             cursor_color: [0,0,0,1]
+            multiline: False
+            hint_text: "Filtrar por nombre"
+            on_text: root.ver_productos(self.text)
 
         ScrollView:
             GridLayout:
@@ -39,13 +41,132 @@ WindowManager:
                 root.manager.transition.direction = "left"
                 app.root.current = "alta"
 
-        Button:
+<PaginaDetalle>:
+    name: "detalle"
+    nombre: nombre
+    descripcion: descripcion
+    categoria: categoria
+    precio: precio
+    stock: stock
+    boton_guardar: boton_guardar
+    on_enter: root.ver_detalle()
+
+
+    BoxLayout:
+        orientation: "vertical"
+
+        BoxLayout:
+            orientation: "vertical"
+            size_hint: 1, 0.8
+            Label:
+                text: "  Nombre del producto"
+                text_size: self.size
+                halign: 'left'
+            TextInput:
+                id: nombre
+                size_hint_y: None
+                height: self.minimum_height if root.height * 0.10 < self.minimum_height else root.height * 0.10
+                cursor_color: [0,0,0,1]
+                multiline: False
+                write_tab: False
+                disabled: True
+
+            Label:
+                text: "  Descripción"
+                text_size: self.size
+                halign: 'left'
+            TextInput:
+                id: descripcion
+                size_hint_y: None
+                height: self.minimum_height if root.height * 0.10 < self.minimum_height else root.height * 0.10
+                cursor_color: [0,0,0,1]
+                multiline: True
+                write_tab: False
+                disabled: True
+
+            Label:
+                text: "  Categoría"
+                text_size: self.size
+                halign: 'left'
+            TextInput:
+                id: categoria
+                size_hint_y: None
+                height: self.minimum_height if root.height * 0.10 < self.minimum_height else root.height * 0.10
+                cursor_color: [0,0,0,1]
+                multiline: False
+                write_tab: False
+                disabled: True
+
+            Label:
+                text: "  Precio"
+                text_size: self.size
+                halign: 'left'
+            TextInput:
+                id: precio
+                size_hint_y: None
+                height: self.minimum_height if root.height * 0.10 < self.minimum_height else root.height * 0.10
+                cursor_color: [0,0,0,1]
+                input_type: "number"
+                input_filter: "float"
+                multiline: False
+                write_tab: False
+                disabled: True
+
+            Label:
+                text: "  Stock"
+                text_size: self.size
+                halign: 'left'
+            TextInput:
+                id: stock
+                size_hint_y: None
+                height: self.minimum_height if root.height * 0.10 < self.minimum_height else root.height * 0.10
+                cursor_color: [0,0,0,1]
+                input_type: "number"
+                input_filter: "int"
+                multiline: False
+                write_tab: False
+                disabled: True
+        BoxLayout:
+            orientation: "horizontal"
             size: root.width, root.height * 0.10
             size_hint: None, None
-            text: "Borrar producto"
+            Button:
+                text: "Modificar"
+                # background_normal='lapiz.png'
+                # background_down='lapiz.png'
+                # size_hint=(.3, .3)
+                # pos_hint={"x": 0.35, "y": 0.3}
+                on_release: root.activar_modificacion()
+            Button:
+                id: boton_guardar
+                disabled: True
+                text: "Guardar cambios"
+                # background_normal='diskette.png'
+                # background_down='diskette.png'
+                # size_hint=(.3, .3)
+                # pos_hint={"x": 0.35, "y": 0.3}
+                on_release: root.modificar_prod()
+
+        Button:
+            text: "Borrar"
+            size: root.width, root.height * 0.10
+            size_hint: None, None
+            # background_normal='borrar.png'
+            # background_down='borrar.png'
+            # size_hint=(.3, .3)
+            # pos_hint={"x": 0.35, "y": 0.3}
             on_release:
-                root.manager.transition.direction = "left"
-                app.root.current = "baja"
+                root.borrar_prod()
+                app.root.current = "inicio"
+                root.manager.transition.direction = "right"
+
+        Button:
+            text: "Volver"
+            size: root.width, root.height * 0.10
+            size_hint: None, None
+            on_release:
+                app.root.current = "inicio"
+                root.manager.transition.direction = "right"
 
 <PaginaAlta>:
     name: "alta"
@@ -54,11 +175,10 @@ WindowManager:
     categoria: categoria
     precio: precio
     stock: stock
+    on_enter: self.borrar_campos()
 
     BoxLayout:
         orientation: "vertical"
-
-
 
         BoxLayout:
             orientation: "vertical"
@@ -70,49 +190,54 @@ WindowManager:
         BoxLayout:
             orientation: "vertical"
             size_hint: 1, 0.8
-            Label
+            Label:
                 text: "  Nombre del producto"
                 text_size: self.size
                 halign: 'left'
-            TextInput
+            TextInput:
                 id: nombre
                 multiline: False
+                write_tab: False
 
-            Label
+            Label:
                 text: "  Descripción"
                 text_size: self.size
                 halign: 'left'
-            TextInput
+            TextInput:
                 id: descripcion
                 multiline: True
+                write_tab: False
 
-            Label
+            Label:
                 text: "  Categoría"
                 text_size: self.size
                 halign: 'left'
-            TextInput
+            TextInput:
                 id: categoria
                 multiline: False
+                write_tab: False
 
-            Label
+            Label:
                 text: "  Precio"
                 text_size: self.size
                 halign: 'left'
-            TextInput
+            TextInput:
                 id: precio
                 input_type: "number"
                 input_filter: "float"
                 multiline: False
+                write_tab: False
 
-            Label
+            Label:
                 text: "  Stock"
                 text_size: self.size
                 halign: 'left'
-            TextInput
+            TextInput:
                 id: stock
                 input_type: "number"
                 input_filter: "int"
                 multiline: False
+                write_tab: False
 
         BoxLayout:
             orientation: "horizontal"
@@ -122,54 +247,6 @@ WindowManager:
             Button
                 text: "Dar de alta"
                 on_release: root.alta()
-            Button:
-                text: "Volver"
-                on_release:
-                    app.root.current = "inicio"
-                    root.manager.transition.direction = "right"
-
-<PaginaBaja>:
-    name: "baja"
-    caja_lista: caja_lista_borrar
-
-    BoxLayout:
-        orientation: "vertical"
-
-        BoxLayout:
-            orientation: "vertical"
-            size: root.width, root.height * 0.10
-            size_hint: None, None
-            Label:
-                text: "Mi tienda - Borrar producto"
-
-        GridLayout:
-            cols: 1
-            Label:
-                size_hint: None, None
-                size: root.width, root.height * 0.10
-                text: "Seleccione un producto"
-
-            TextInput:
-                size_hint: None, None
-                size: root.width, self.minimum_height if root.height * 0.10 < self.minimum_height else root.height * 0.10
-                multiline: False
-                on_text: root.listar_borrado_productos(self.text)
-                hint_text: "Filtrar por nombre"
-                cursor_color: [0,0,0,1]
-
-            ScrollView:
-                GridLayout:
-                    id: caja_lista_borrar
-                    cols: 1
-                    size_hint_y: None
-                    spacing: 10
-                    height: self.minimum_height
-
-        BoxLayout:
-            orientation: "horizontal"
-            size: root.width, root.height * 0.10
-            size_hint: None, None
-
             Button:
                 text: "Volver"
                 on_release:
