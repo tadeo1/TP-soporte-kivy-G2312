@@ -10,17 +10,21 @@ import sqlite3
 
 
 class PaginaInicio(Screen):
-    caja = ObjectProperty(None)
+    caja_lista = ObjectProperty(None)
     widgets = []
 
     def ver_productos(self, nombre):
         for w in self.widgets:
-            self.caja.remove_widget(w)
+            self.caja_lista.remove_widget(w)
         self.widgets = []
         resultado = db.buscar_producto_por_nombre(nombre)
         for prod in resultado:
-            nombre = Label(text=f"{prod[1]}")
-            self.caja.add_widget(nombre)
+            nombre = Label(
+                text=f"{prod[1]}",
+                size_hint_y=None,
+                height=40
+            )
+            self.caja_lista.add_widget(nombre)
             self.widgets.append(nombre)
 
 
@@ -58,6 +62,10 @@ class PaginaAlta(Screen):
             popup.open()
 
             print("Falta ingresar nombre y/o precio")
+
+
+class PaginaBaja(Screen):
+    pass
 
 
 class WindowManager(ScreenManager):
