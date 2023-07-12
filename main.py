@@ -132,7 +132,7 @@ class PaginaAlta(Screen):
                     self.stock.text
                 )
             except sqlite3.IntegrityError as e:
-                if e.sqlite_errorname == "SQLITE_CONSTRAINT_UNIQUE":
+                if str(e) == "UNIQUE constraint failed: producto.nombre":
                     popup = Popup(size_hint=(None, None))
                     popup.title = "Error"
                     popup.size = (self.width * 0.5, self.height * 0.2)
