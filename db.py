@@ -39,6 +39,7 @@ def crear_producto(nombre, descripcion, categoria, precio, stock):
 
 
 def buscar_producto_por_nombre(nombre):
+    crear_tabla()
     con = sqlite3.connect("myapp.db")
     cur = con.cursor()
     try:
