@@ -39,6 +39,7 @@ def crear_producto(nombre, descripcion, categoria, precio, stock):
 
 
 def buscar_producto_por_nombre(nombre):
+    crear_tabla()
     con = sqlite3.connect("myapp.db")
     cur = con.cursor()
     try:
@@ -52,6 +53,20 @@ def buscar_producto_por_nombre(nombre):
         con.close()
 
 
+def get_producto_por_id(id):
+    con = sqlite3.connect("myapp.db")
+    con.row_factory = sqlite3.Row
+    cur = con.cursor()
+    try:
+        cur.execute(
+            """SELECT * FROM producto WHERE id = ?""",
+            (id,)
+        )
+        return cur.fetchone()
+    finally:
+        con.close()
+
+
 def borrar_producto_por_id(id):
     con = sqlite3.connect("myapp.db")
     cur = con.cursor()
@@ -61,7 +76,22 @@ def borrar_producto_por_id(id):
             (id,)
         )
         con.commit()
-        print(f"'{id}' borrado con exito")
+        print(f"ID {id} borrado con exito")
+        return cur.fetchall()
+    finally:
+        con.close()
+
+
+def borrar_producto_por_nombre(nombre):
+    con = sqlite3.connect("myapp.db")
+    cur = con.cursor()
+    try:
+        cur.execute(
+            """DELETE FROM producto WHERE nombre = ?""",
+            (nombre,)
+        )
+        con.commit()
+        print(f"'{nombre}' borrado con exito")
         return cur.fetchall()
     finally:
         con.close()
@@ -72,7 +102,8 @@ def modificar_producto_por_id(id, nombre, descripcion, categoria, precio, stock)
     cur = con.cursor()
     try:
         cur.execute(
-            """update FROM producto set nombre= ?, 
+            """UPDATE producto SET
+            nombre = ?, 
             descripcion = ?, 
             categoria = ?, 
             precio = ?, 
