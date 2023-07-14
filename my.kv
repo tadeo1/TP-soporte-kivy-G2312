@@ -5,6 +5,7 @@ WindowManager:
 
 <PaginaInicio>:
     name: "inicio"
+    caja_principal: caja_principal
     caja_lista: caja_lista
     on_enter: filtro.text = ""
     on_parent: root.ver_productos("")
@@ -14,7 +15,7 @@ WindowManager:
         Label:
             size_hint: None, None
             size: root.width, root.height * 0.10
-            text: "Productos"
+            text: "Mi tienda - Productos"
 
         TextInput:
             id: filtro
@@ -24,6 +25,13 @@ WindowManager:
             multiline: False
             hint_text: "Filtrar por nombre"
             on_text: root.ver_productos(self.text)
+
+        GridLayout:
+            id: caja_principal
+            cols: 1
+            size_hint_y: None
+            spacing: 10
+            height: self.minimum_height
 
         ScrollView:
             GridLayout:
@@ -48,6 +56,7 @@ WindowManager:
     categoria: categoria
     precio: precio
     stock: stock
+    cambio_modificacion: cambio_modificacion
     boton_guardar: boton_guardar
     on_enter: root.ver_detalle()
 
@@ -131,6 +140,7 @@ WindowManager:
             size: root.width, root.height * 0.10
             size_hint: None, None
             Button:
+                id: cambio_modificacion
                 text: "Modificar"
 #                background_normal: 'lapiz.png'
 #                background_down: 'lapiz.png'
@@ -198,6 +208,7 @@ WindowManager:
                 id: nombre
                 multiline: False
                 write_tab: False
+                cursor_color: [0,0,0,1]
 
             Label:
                 text: "  Descripción"
@@ -207,6 +218,7 @@ WindowManager:
                 id: descripcion
                 multiline: True
                 write_tab: False
+                cursor_color: [0,0,0,1]
 
             Label:
                 text: "  Categoría"
@@ -216,6 +228,7 @@ WindowManager:
                 id: categoria
                 multiline: False
                 write_tab: False
+                cursor_color: [0,0,0,1]
 
             Label:
                 text: "  Precio"
@@ -227,6 +240,7 @@ WindowManager:
                 input_filter: "float"
                 multiline: False
                 write_tab: False
+                cursor_color: [0,0,0,1]
 
             Label:
                 text: "  Stock"
@@ -238,6 +252,7 @@ WindowManager:
                 input_filter: "int"
                 multiline: False
                 write_tab: False
+                cursor_color: [0,0,0,1]
 
         BoxLayout:
             orientation: "horizontal"
