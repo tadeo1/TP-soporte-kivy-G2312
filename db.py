@@ -41,10 +41,11 @@ def crear_producto(nombre, descripcion, categoria, precio, stock):
 def buscar_producto_por_nombre(nombre):
     crear_tabla()
     con = sqlite3.connect("myapp.db")
+    con.row_factory = sqlite3.Row
     cur = con.cursor()
     try:
         cur.execute(
-            """SELECT id, nombre FROM producto WHERE nombre LIKE ?""",
+            """SELECT id, nombre, categoria, stock FROM producto WHERE nombre LIKE ?""",
             ("%" + nombre + "%",)
         )
         print("busqueda con exito:", nombre)
