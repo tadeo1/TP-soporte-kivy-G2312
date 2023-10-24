@@ -55,7 +55,7 @@ class FileScreen(Screen):
         self.title = "Archivos"
         layout = BoxLayout(orientation='vertical')
 
-        self.file_chooser = FileChooserListView(path='C:\\Users\\carad\\Documents\\TP-soporte-kivy-G2312\\tp2\\Soporte2023_Kivy_OpenCV_APP-main\\archivos\\', filters=['*.jpg', '*.png', '*.mp4'])
+        self.file_chooser = FileChooserListView(path='/tp2/kivyopencv\\archivos\\', filters=['*.jpg', '*.png', '*.mp4'])
         layout.add_widget(self.file_chooser)
 
         self.media_widget = BoxLayout(orientation='vertical')
