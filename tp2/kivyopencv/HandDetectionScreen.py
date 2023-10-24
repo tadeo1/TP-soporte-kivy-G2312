@@ -11,11 +11,10 @@ import mediapipe as mp
 import time
 from threading import Thread
 import datetime
-import numpy as np
 
 from google.protobuf.json_format import MessageToDict
 
-from kivy.uix.screenmanager import ScreenManager, Screen
+from kivy.uix.screenmanager import Screen
 
 
 class CameraScreen(Screen):

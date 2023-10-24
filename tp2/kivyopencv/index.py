@@ -3,14 +3,12 @@ from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.button import Button
 from kivy.uix.label import Label
 from kivy.uix.screenmanager import ScreenManager, Screen
-from kivy.core.window import Window
 
 from kivy.uix.image import Image
 from kivy.uix.videoplayer import VideoPlayer
 from kivy.uix.filechooser import FileChooserListView
 
 from HandDetectionScreen import CameraScreen
-from ModelosPrueba.LoginScreenFree import LoginScreen
 from LoginScreen import LoginScreen2
 
 class IndexScreen(Screen):
@@ -55,7 +53,7 @@ class FileScreen(Screen):
         self.title = "Archivos"
         layout = BoxLayout(orientation='vertical')
 
-        self.file_chooser = FileChooserListView(path='/tp2/kivyopencv\\archivos\\', filters=['*.jpg', '*.png', '*.mp4'])
+        self.file_chooser = FileChooserListView(path='C:\\Users\\carad\\Documents\\TP-soporte-kivy-G2312\\tp2\\kivyopencv\\archivos\\', filters=['*.jpg', '*.png', '*.mp4'])
         layout.add_widget(self.file_chooser)
 
         self.media_widget = BoxLayout(orientation='vertical')
